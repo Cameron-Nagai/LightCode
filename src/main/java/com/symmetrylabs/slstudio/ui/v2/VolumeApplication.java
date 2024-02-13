@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.symmetrylabs.slstudio.server.VolumeClient;
 import com.symmetrylabs.slstudio.server.VolumeCore;
+import com.symmetrylabs.slstudio.ui.v2.ArtNetWindow.ArtNetWindow;
+import com.symmetrylabs.slstudio.ui.v2.ArtNetWindow.CustomFeatureInventory;
 import heronarts.lx.LX;
 import heronarts.lx.model.LXModel;
 
@@ -163,6 +165,8 @@ public class VolumeApplication extends ApplicationAdapter implements VolumeCore.
     public void onShowChangeFinished() {
         LX lx = core.lx;
         LXModel model = lx.model;
+        CustomFeatureInventory inventory = new CustomFeatureInventory();
+
 
         renderer = new RenderManager(lx);
         GnomonRenderable gnomon = new GnomonRenderable(model, renderer.shaderProvider);
@@ -207,6 +211,7 @@ public class VolumeApplication extends ApplicationAdapter implements VolumeCore.
         WindowManager.addPersistent("Modulation", () -> new ModulationWindow(lx), false);
         WindowManager.addPersistent("OSC", () -> new OscWindow(lx), false);
         WindowManager.addPersistent("Remote Control", () -> new RemoteControlWindow(client), false);
+        WindowManager.addPersistent("ArtNet", () -> new ArtNetWindow(lx, inventory), true);
 
         WindowManager.addPersistent("Cue", () -> new CueWindow(lx, core.cueManager), false);
 
@@ -214,6 +219,7 @@ public class VolumeApplication extends ApplicationAdapter implements VolumeCore.
         WindowManager.addPersistent("Developer/Style editor", SlimguiStyleEditor::new, false);
         WindowManager.addPersistent("Developer/Imgui metrics", SlimguiMetricsWindow::new, false);
         WindowManager.addPersistent("Developer/About imgui", SlimguiAboutWindow::new, false);
+
     }
 
     @Override
